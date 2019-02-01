@@ -2,8 +2,29 @@
 
 @import "~milligram/dist/milligram";
 
-.column > p {
-    padding-top: 10ex;
-    text-align: center;
+.column {
+    padding-top: 0ex;
+    text-align: left;
+    height: 0ex;
+    width: 20ex
 }
 
+.button {
+  color: red;
+  border-color: black;
+  background-color: transparent;``
+  font: 3.5rem;
+  text-align: center;
+  height: 10rem;
+  line-height: 10rem;
+  width: 10rem;
+}
+
+.reset{
+  color: white;
+  border-color: gold;
+  background-color: purple;
+  width: 20rem;
+  height: 5rem;
+  line-height: 5rem;
+}
