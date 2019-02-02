@@ -5,12 +5,15 @@ import _ from 'lodash';
 export default function game_init(root) {
   ReactDOM.render(<Starter />, root);
 }
-//fisher-yates algorithm
+
+const letters = ["A", "A", "B", "B", "C", "C", "D", "D", "E", "E", "F", "F",
+"G", "G", "H", "H"]
+
 function shuffle(a) {
   var j, x, i;
-  for (i = a.length - 1, i > 0; i--) {
-    a = Math.floor(Math.random() * (i + 1));
-    x = l[i];
+  for (i = a.length - 1; i > 0; i--) {
+    j = Math.floor(Math.random() * (i + 1));
+    x = a[i];
     a[i] = a[j];
     a[j] = x;
   }
@@ -22,8 +25,6 @@ class Starter extends React.Component {
     super(props);
     this.state = { left: false,
       curRev: [],
-      letters: ["A", "A", "B", "B", "C", "C", "D", "D", "E", "E", "F", "F",
-      "G", "G", "H", "H"]
       lastInd: -1,
       guessCount: 0,
       score: 0,
@@ -35,24 +36,24 @@ class Starter extends React.Component {
     let curCount = this.state.guessCount;
     let tempArr = this.state.text;
     let revealed = this.state.curRev;
-    tempArr[ind] = this.state.letters[ind];
+    tempArr[ind] = letters[ind];
     this.setState({guessCount: curCount + 1});
     this.setState({text: tempArr});
-    if (revealed.length >= 1 && revealed[0] == this.state.letters[ind]
+    if (revealed.length >= 1 && revealed[0] == letters[ind]
       && ind != this.state.lastInd) {
       this.setState({score: this.state.score + 25 - this.state.guessCount});
       this.setState({curRev: []});
       this.setState({lastInd: ind});
     }
-    else if (revealed.length >= 1 && revealed[0] != this.state.letters[ind]) {
-      setTimeout(() => {this.setState({text: tempArr})},1000);
+    else if (revealed.length >= 1 && revealed[0] != letters[ind]) {
+      //setTimeout(() => {this.setState({text: tempArr})},1000);
       tempArr[ind] = " ";
-      tempArr[this.state.lastInd] = " ";
+      tempArr[this.state.lastInd] = " "
       this.setState({curRev: []});
       this.setState({lastInd: ind});
     }
     else {
-      this.setState({curRev: this.state.curRev + [this.state.letters[ind]]});
+      this.setState({curRev: this.state.curRev + [letters[ind]]});
       this.setState({lastInd: ind});
     }
   }
@@ -60,13 +61,11 @@ class Starter extends React.Component {
   reset() {
     var textReset = [" "," "," "," "," "," "," "," "," "," "," "," "," ",
     " "," "," "]
-    let tempLetters = this.state.letters;
-    tempLetters = shuffle(tempLetters);
     this.setState({score: 0});
     this.setState({guessCount: 0});
-    this.setState({letters: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]})
     this.setState({text: textReset})
     this.setState({curRev: []})
+    letters = shuffle(letters);
   }
 
   render() {
@@ -103,7 +102,7 @@ class Starter extends React.Component {
     let button16 = <button class="button" onClick={() => this.update(15)}>
       {this.state.text[15]}</button>;
 
-    let reset = <button class="button reset" onClick={this.reset.bind(this))}>
+    let reset = <button class="button reset" onClick={this.reset.bind(this)}>
         Reset Game</button>;
 
     if (this.state.left) {
