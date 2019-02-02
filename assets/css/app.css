@@ -5,25 +5,30 @@
 .column {
     padding-top: 0ex;
     text-align: left;
-    height: 0ex;
-    width: 20ex
+    font-size: 2.5rem;
+    font-family: fantasy, herculanum;
+    height: 3ex;
+    background-color: purple;
+    color:gold;
 }
 
 .button {
-  color: red;
-  border-color: black;
-  background-color: transparent;``
-  font: 3.5rem;
-  text-align: center;
+  color: purple;
+  border-color: purple;
+  background-color: gold;
+  font-family: fantasy, herculanum;
+  font-size: 70px;
+  text-align: left;
   height: 10rem;
-  line-height: 10rem;
+  line-height: 12rem;
   width: 10rem;
 }
 
 .reset{
-  color: white;
+  color: gold;
   border-color: gold;
   background-color: purple;
+  font-size: 18px;
   width: 20rem;
   height: 5rem;
   line-height: 5rem;
