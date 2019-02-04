@@ -9,17 +9,6 @@ export default function game_init(root) {
 const letters = ["A", "A", "B", "B", "C", "C", "D", "D", "E", "E", "F", "F",
 "G", "G", "H", "H"]
 
-function shuffle(a) {
-  var j, x, i;
-  for (i = a.length - 1; i > 0; i--) {
-    j = Math.floor(Math.random() * (i + 1));
-    x = a[i];
-    a[i] = a[j];
-    a[j] = x;
-  }
-  return a;
-}
-
 class Starter extends React.Component {
   constructor(props) {
     super(props);
@@ -46,7 +35,7 @@ class Starter extends React.Component {
       this.setState({lastInd: ind});
     }
     else if (revealed.length >= 1 && revealed[0] != letters[ind]) {
-      //setTimeout(() => {this.setState({text: tempArr})},1000);
+      setTimeout(() => {this.setState({text: temp2})},1000);
       tempArr[ind] = " ";
       tempArr[this.state.lastInd] = " "
       this.setState({curRev: []});
@@ -61,11 +50,17 @@ class Starter extends React.Component {
   reset() {
     var textReset = [" "," "," "," "," "," "," "," "," "," "," "," "," ",
     " "," "," "]
+    var j, x, i;
     this.setState({score: 0});
     this.setState({guessCount: 0});
     this.setState({text: textReset})
     this.setState({curRev: []})
-    letters = shuffle(letters);
+    for (i = letters.length - 1; i > 0; i--) {
+      j = Math.floor(Math.random() * (i + 1));
+      x = letters[i];
+      letters[i] = letters[j];
+      letters[j] = x;
+    }
   }
 
   render() {
