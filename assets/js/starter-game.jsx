@@ -6,18 +6,13 @@ export default function game_init(root) {
   ReactDOM.render(<Starter />, root);
 }
 
-const letters = ["A", "A", "B", "B", "C", "C", "D", "D", "E", "E", "F", "F",
-"G", "G", "H", "H"]
-
 class Starter extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { left: false,
-      curRev: [],
-      lastInd: -1,
+    this.state = {
       guessCount: 0,
       score: 0,
-      text: [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "]
+      text: []
     };
   }
 
@@ -35,9 +30,9 @@ class Starter extends React.Component {
       this.setState({lastInd: ind});
     }
     else if (revealed.length >= 1 && revealed[0] != letters[ind]) {
-      setTimeout(() => {this.setState({text: temp2})},1000);
-      tempArr[ind] = " ";
-      tempArr[this.state.lastInd] = " "
+      tempArr2[ind] = " ";
+      tempArr2[this.state.lastInd] = " ";
+      setTimeout(() => {this.setState({text: tempArr2})},1000);
       this.setState({curRev: []});
       this.setState({lastInd: ind});
     }
@@ -100,48 +95,42 @@ class Starter extends React.Component {
     let reset = <button class="button reset" onClick={this.reset.bind(this)}>
         Reset Game</button>;
 
-    if (this.state.left) {
-      return <div className="row">
-      </div>;
-    }
-    else {
-      return <div class="container">
-        <h1>Memorize It!</h1>
-        <p>
-          <div class="row">
-            <div class="column column-15">Score: {this.state.score}</div>
-            <div class="column column-80">Guess Count: {this.state.guessCount}
-            </div>
+    return <div class="container">
+      <h1>Memorize It!</h1>
+      <p>
+        <div class="row">
+          <div class="column column-15">Score: {this.state.score}</div>
+          <div class="column column-80">Guess Count: {this.state.guessCount}
           </div>
-        </p>
-        <div class="row">
-          {reset}
         </div>
-        <div class="row">
-          {button}
-          {button2}
-          {button3}
-          {button4}
-        </div>
-        <div class="row">
-          {button5}
-          {button6}
-          {button7}
-          {button8}
-        </div>
-        <div class="row">
-          {button9}
-          {button10}
-          {button11}
-          {button12}
-        </div>
-        <div class="row">
-          {button13}
-          {button14}
-          {button15}
-          {button16}
-        </div>
-      </div>;
-    }
+      </p>
+      <div class="row">
+        {reset}
+      </div>
+      <div class="row">
+        {button}
+        {button2}
+        {button3}
+        {button4}
+      </div>
+      <div class="row">
+        {button5}
+        {button6}
+        {button7}
+        {button8}
+      </div>
+      <div class="row">
+        {button9}
+        {button10}
+        {button11}
+        {button12}
+      </div>
+      <div class="row">
+        {button13}
+        {button14}
+        {button15}
+        {button16}
+      </div>
+    </div>;
   }
 }
