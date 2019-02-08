@@ -9,53 +9,35 @@ export default function game_init(root) {
 class Starter extends React.Component {
   constructor(props) {
     super(props);
+
+    this.channel = props.channel;
     this.state = {
       guessCount: 0,
       score: 0,
       text: []
     };
+
+    this.channel
+      .join()
+      .receive("ok", this.got_view.bind(this))
+      .receive("error", resp => { console.log("Unable to join", resp); });
   }
 
   update(ind) {
-    let curCount = this.state.guessCount;
-    let tempArr = this.state.text;
-    let revealed = this.state.curRev;
-    tempArr[ind] = letters[ind];
-    this.setState({guessCount: curCount + 1});
-    this.setState({text: tempArr});
-    if (revealed.length >= 1 && revealed[0] == letters[ind]
-      && ind != this.state.lastInd) {
-      this.setState({score: this.state.score + 25 - this.state.guessCount});
-      this.setState({curRev: []});
-      this.setState({lastInd: ind});
-    }
-    else if (revealed.length >= 1 && revealed[0] != letters[ind]) {
-      tempArr2[ind] = " ";
-      tempArr2[this.state.lastInd] = " ";
-      setTimeout(() => {this.setState({text: tempArr2})},1000);
-      this.setState({curRev: []});
-      this.setState({lastInd: ind});
-    }
-    else {
-      this.setState({curRev: this.state.curRev + [letters[ind]]});
-      this.setState({lastInd: ind});
-    }
+    this.channel.push("flip", { index: ind})
+      .receive("ok", this.got_view.bind(this));
+  }
+
+  got_view(view) {
+    console.log("new view", view);
+    this.setState(view.game);
   }
 
   reset() {
-    var textReset = [" "," "," "," "," "," "," "," "," "," "," "," "," ",
-    " "," "," "]
-    var j, x, i;
+    var textReset = []
     this.setState({score: 0});
     this.setState({guessCount: 0});
     this.setState({text: textReset})
-    this.setState({curRev: []})
-    for (i = letters.length - 1; i > 0; i--) {
-      j = Math.floor(Math.random() * (i + 1));
-      x = letters[i];
-      letters[i] = letters[j];
-      letters[j] = x;
-    }
   }
 
   render() {
