@@ -5,7 +5,7 @@ defmodule Memory.Game do
       correct_tiles: [],
       open_tiles: [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
                     " ", " ", " ", " ", " ", " "],
-      guessed_tiles:[],
+      guessed_tiles: [],
       last_index: -1,
       guess_count: 0,
       score: 0,
@@ -23,9 +23,9 @@ defmodule Memory.Game do
     tg = game.guessed_tiles
     ci = game.current_index
     %{
-      guessCount: gs
-      score: calc_score(gs, cs)
-      text: flipped(is, ci, os, ts)
+      guessCount: gs,
+      score: calc_score(gs, cs),
+      text: flipped(is, ci, os, ts),
     }
   end
 
